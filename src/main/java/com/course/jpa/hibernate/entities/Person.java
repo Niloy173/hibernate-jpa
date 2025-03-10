@@ -1,14 +1,13 @@
 package com.course.jpa.hibernate.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -42,5 +41,12 @@ public class Person {
     private Date personBirthDate;
 
     @Column(name = "CREATED_DATE")
-    private Date createdAt;
+    private Timestamp createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = Timestamp.from(Instant.now());
+        }
+    }
 }
