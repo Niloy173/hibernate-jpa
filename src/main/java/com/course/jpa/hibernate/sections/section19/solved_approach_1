@@ -1,0 +1,56 @@
+[problem described in Tight_coupling_example]
+
+
+* Now as Box class needs the instance or implementation of Triangle or Circle or any other shape class
+so it has be independent so that it can take any shape and print
+
+* Interface approach
+
+interface Shape {
+    void print();
+}
+
+------Now all the classes (Triangle or Circle) will implement this above interface
+
+
+public class Triangle implements Shape {
+
+    public Triangle() {}
+
+    @Override
+    void print() {
+        System.out.println("Triangle");
+    }
+
+}
+
+[Same implementation should be provided for any other shape class]
+
+Now in the Box class we will provide Shape interface as an instance or required Dependencies meaning
+if any reference class that needs to be passed through Box class has to implement Shape interface
+first
+
+public class Box {
+
+    private Shape shape;
+
+    public Box(Shape shape) {
+        this.shape = shape;
+    }
+
+    void printShape() {
+       this.shape.print();
+    }
+
+}
+
+-----Now in the Main method let's say we have something like below
+
+
+Shape triangle = new Triangle();
+Box triangleBox = new Box(triangle);
+
+triangleBox.printShape();
+
+[This problem what we have solved also known as Dependency Injection via Interface which has more
+broader perspective]

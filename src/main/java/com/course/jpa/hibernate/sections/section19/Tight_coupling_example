@@ -1,0 +1,48 @@
+Section-19 (example of tight coupling)
+
+Suppose we have a super class (Box) which excepts a single shape box and there is a showBox method
+which will print which shape of box we want to show
+
+public class Box {
+
+    private Triangle triangle;
+
+    public Box(Triangle triangle) {
+        this.triangle = triangle;
+    }
+
+    void printShape() {
+        this.triangle.print();
+    }
+
+}
+
+So let's say we have shape class (Circle,Triangle) etc which basic example of class structure given below
+
+public class Triangle {
+
+    public Triangle() {
+
+    }
+
+    void print() {
+        System.out.println("Triangle");
+    }
+
+}
+
+[Same structure should be added in case of Circle or any other class]
+
+Now in the Main method let's say we have something like below
+
+
+Triangle triangle = new Triangle();
+Box box = new Box(triangle);
+
+box.printShape();
+
+
+All is ok except what if i want to print the circle class or any other shape class in that case
+we need to modify the Box class change the type from Triangle to any other shape but it doesn't
+meet the purpose because we don't want to change every time when a new shape comes in order to print
+them

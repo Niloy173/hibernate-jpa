@@ -1,0 +1,19 @@
+@Component
+public class Application {
+
+    private Application1 application1;
+
+    public Application(Application1 application1) {
+        this.application1 = application1;
+    }
+}
+
+// what it means spring will create the instance behind the scene will manage the dependencies
+of which Application1 is required as a dependency of constructor injection and will try to autowire
+it
+
+Spring will manage all this manual object creation instances after application context created successfully
+which by the way stores bean and dependencies throughout the application
+
+Bean - it is like an instance that spring will create when it sees @Component and its friends like
+@Repository, @Service and so on
