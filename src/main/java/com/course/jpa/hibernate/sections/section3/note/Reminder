@@ -1,0 +1,11 @@
+A Few step before using h2 database
+
+* uncomment the dependency in pom.xml
+* uncomment necessary queries from ./resources/data.sql
+* all configuration properties under application-dev.properties should be active also disable oracle datasource connectivity
+* other packages if active should be marked as exclude as it might raise unnecessary issues with oracle configuration enabled
+
+
+Note: To exclude other package use below approach
+
+    right click any package (ex:controllers) -> Mark Directory as -> exclude

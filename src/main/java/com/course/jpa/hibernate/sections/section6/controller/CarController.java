@@ -23,4 +23,9 @@ public class CarController {
     public String createNewCar(@RequestBody CarDto carDto) {
         return carService.saveNewCar(carDto);
     }
+
+    @DeleteMapping("/delete-car/{carId}")
+    public String deleteCar(@PathVariable("carId") Long carId) {
+        return carService.deleteCarByCarId(carId);
+    }
 }

@@ -14,11 +14,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "PERSONS")
+@Table(name = "PERSON")
+//@NamedQuery(name = "find_all_persons", query = "SELECT * FROM PERSON ")
 @DynamicUpdate
 public class Person {
 
     @Id
+    @GeneratedValue
     @Column(name = "PERSON_ID")
     private long personId;
 

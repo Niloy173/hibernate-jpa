@@ -1,0 +1,12 @@
+-- Create 'user' table
+--CREATE TABLE animal (
+--    animalId INT AUTO_INCREMENT PRIMARY KEY,
+--    animalName VARCHAR(100) NOT NULL UNIQUE,
+--    animalDescription VARCHAR(1000) NOT NULL
+--);
+
+-- Insert sample data
+--INSERT INTO animal (animalName, animalDescription) VALUES
+--('Tiger', 'The tiger is a large cat and a member of the genus Panthera native to Asia. It has a powerful, muscular body with a large head and paws, a long tail and orange fur with black, mostly vertical stripes.'),
+--('Elephant', 'Elephants are the largest living land animals. Three living species are currently recognised: the African bush elephant, the African forest elephant, and the Asian elephant. They are the only surviving members of the family Elephantidae and the order Proboscidea; extinct relatives include mammoths and mastodons. '),
+--('Crcodioles', 'Crocodiles or true crocodiles are large, semiaquatic reptiles that live throughout the tropics in Africa, Asia, the Americas and Australia');

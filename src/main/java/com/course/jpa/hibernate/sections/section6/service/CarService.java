@@ -7,6 +7,8 @@ import com.course.jpa.hibernate.sections.section6.repository.CarRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CarService {
 
@@ -47,5 +49,16 @@ public class CarService {
         return response;
 
 
+    }
+
+    public String deleteCarByCarId(Long id) {
+        Optional<Car> car = carRepo.findCarByCarIdNumber(id);
+
+        if(car.isEmpty()) {
+            return "No car found with id : "+id;
+        }
+
+        carRepo.delete(car.get());
+        return "Deleted successfully";
     }
 }
