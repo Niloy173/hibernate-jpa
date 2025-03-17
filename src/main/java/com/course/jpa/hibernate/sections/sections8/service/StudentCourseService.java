@@ -78,7 +78,12 @@ public class StudentCourseService {
         Student student = studentRepo.findStudentBysId(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
-        List<Object[]> registeredCourses = studentRepo.getAllRegisteredCoursesById(student.getSId());
+//        for(Course course: student.getCourses()) {
+//            log.info("course name : {} ",course.getCName());
+//        }
+
+//        List<Object[]> registeredCourses = studentRepo.getAllRegisteredCoursesById(student.getSId());
+        List<Course> registeredCourses = student.getCourses(); // using jpa approach
 
         if(registeredCourses.isEmpty()) {
             return new ArrayList<>();
@@ -86,9 +91,8 @@ public class StudentCourseService {
 
         List<CourseDto> courses = new ArrayList<>();
 
-        registeredCourses.forEach(cId -> {
-            Optional<Course> course = courseRepo.findCourseBycId((Long) cId[0]);
-            CourseDto formattedCourse = courseMapper.entityToDto(course.get());
+        registeredCourses.forEach(course -> {
+            CourseDto formattedCourse = courseMapper.entityToDto(course);
             courses.add(formattedCourse);
         });
 
