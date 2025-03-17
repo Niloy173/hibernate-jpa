@@ -10,4 +10,6 @@ public interface CourseMapper {
 
     @Mapping(target = "CId", ignore = true)
     Course dtoToEntity(CourseDto courseDto);
+
+    CourseDto entityToDto(Course course);
 }

@@ -1,6 +1,7 @@
 package com.course.jpa.hibernate.sections.sections8.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,6 @@ public class CourseDto {
     private Timestamp createdAt;
 
     // Instead of including entire StudentDto objects, just use their IDs
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<Long> studentIds = new HashSet<>();
 }

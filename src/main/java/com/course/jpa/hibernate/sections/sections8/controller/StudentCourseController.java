@@ -5,6 +5,8 @@ import com.course.jpa.hibernate.sections.sections8.dto.StudentDto;
 import com.course.jpa.hibernate.sections.sections8.service.StudentCourseService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/student-course")
 public class StudentCourseController {
@@ -33,8 +35,13 @@ public class StudentCourseController {
         return service.enrollStudentIntoCourse(studentId,courseId);
     }
 
-    @GetMapping("/student/{id}")
-    public StudentDto getStudentRegisteredCourseInformation(@PathVariable("id") Long id) {
-        return service.getStudentCourseInformation(id);
+    @GetMapping("/student/{id}/registered-courses")
+    public List<CourseDto> getStudentRegisteredCourseInformation(@PathVariable("id") Long id) {
+        return service.getStudentCoursesInformation(id);
     }
+
+//    @GetMapping("/course/{id}/registered-students")
+//    public List<StudentDto> getRegStudentUnderSingleCourse(@PathVariable("id") Long id) {
+//        return service.getAllStudentsUnderSingleCourse(id);
+//    }
 }

@@ -26,7 +26,7 @@ public class AuthorController {
         return authorService.saveAuthor(authorDto);
     }
 
-    @PostMapping("/delete-auhtor-book")
+    @PostMapping("/delete-author-book")
     public String deleteParticularBook(@RequestParam("authorId") Long authorId,
                                        @RequestParam("bookId") Long bookId) {
         return authorService.deleteParticularAuthorBook(authorId,bookId);

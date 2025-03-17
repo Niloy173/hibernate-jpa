@@ -11,7 +11,11 @@ import com.course.jpa.hibernate.sections.sections8.repo.StudentRepo;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,12 +52,14 @@ public class StudentCourseService {
         Student student = studentRepo.findStudentBysId(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
-        log.info("Student {} ",student);
-
         Course course = courseRepo.findCourseBycId(courseId)
                 .orElseThrow(() -> new EntityNotFoundException("Course not found"));
 
-        log.info("Course {} ",course);
+        //log.info("Course {} ",course);
+
+        if(studentRepo.checkIfStudentAlreadyExistsInPassedCourse(studentId, courseId) > 0) {
+            return "courseId "+courseId+" already registered for studentId : "+studentId;
+        }
 
         try {
 
@@ -67,19 +73,32 @@ public class StudentCourseService {
 
     }
 
-    public StudentDto getStudentCourseInformation(Long id) {
+    public List<CourseDto> getStudentCoursesInformation(Long id) {
 
         Student student = studentRepo.findStudentBysId(id)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
-                StudentDto response = studentMapper.entityToDto(student);
+        List<Object[]> registeredCourses = studentRepo.getAllRegisteredCoursesById(student.getSId());
 
-        Set<Long> courseIds = student.getCourses().stream()
-                .map(Course::getCId)
-                .collect(Collectors.toSet());
+        if(registeredCourses.isEmpty()) {
+            return new ArrayList<>();
+        }
 
-        response.setCourseIds(courseIds);
+        List<CourseDto> courses = new ArrayList<>();
 
-        return response;
+        registeredCourses.forEach(cId -> {
+            Optional<Course> course = courseRepo.findCourseBycId((Long) cId[0]);
+            CourseDto formattedCourse = courseMapper.entityToDto(course.get());
+            courses.add(formattedCourse);
+        });
+
+
+        return courses;
+    }
+
+    public List<StudentDto> getAllStudentsUnderSingleCourse(Long courseId) {
+
+        return null;
+
     }
 }
