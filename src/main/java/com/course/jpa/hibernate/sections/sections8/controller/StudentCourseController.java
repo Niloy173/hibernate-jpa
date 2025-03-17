@@ -40,8 +40,8 @@ public class StudentCourseController {
         return service.getStudentCoursesInformation(id);
     }
 
-//    @GetMapping("/course/{id}/registered-students")
-//    public List<StudentDto> getRegStudentUnderSingleCourse(@PathVariable("id") Long id) {
-//        return service.getAllStudentsUnderSingleCourse(id);
-//    }
+    @GetMapping("/course/{id}/registered-students")
+    public List<StudentDto> getRegStudentUnderSingleCourse(@PathVariable("id") Long id) {
+        return service.getAllStudentsUnderSingleCourse(id);
+    }
 }

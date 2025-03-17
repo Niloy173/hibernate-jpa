@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,5 +25,5 @@ public class StudentDto {
 
     // Instead of including entire CourseDto objects, just use their IDs
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Set<Long> courseIds = new HashSet<>();
+    private List<Long> courseIds = new ArrayList<>();
 }

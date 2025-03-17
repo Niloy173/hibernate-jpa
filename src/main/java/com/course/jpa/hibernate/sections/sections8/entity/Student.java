@@ -9,7 +9,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -48,7 +50,7 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "ID")
     )
     @JsonManagedReference
-    private Set<Course> courses = new HashSet<>();
+    private List<Course> courses = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

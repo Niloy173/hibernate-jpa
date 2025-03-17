@@ -9,7 +9,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -40,7 +42,7 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses",fetch = FetchType.LAZY)
     @JsonBackReference
-    private Set<Student> students = new HashSet<>();
+    private List<Student> students = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

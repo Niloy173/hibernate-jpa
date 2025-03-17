@@ -62,20 +62,20 @@ public class StudentCourseService {
         }
 
         try {
-
             student.getCourses().add(course);
             studentRepo.save(student);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            log.error("Error while saving student: ", e);
+            throw new RuntimeException("Error enrolling student into course", e);
         }
 
         return "courseId "+courseId+" added for studentId : "+studentId;
 
     }
 
-    public List<CourseDto> getStudentCoursesInformation(Long id) {
+    public List<CourseDto> getStudentCoursesInformation(Long studentId) {
 
-        Student student = studentRepo.findStudentBysId(id)
+        Student student = studentRepo.findStudentBysId(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
         List<Object[]> registeredCourses = studentRepo.getAllRegisteredCoursesById(student.getSId());
@@ -98,7 +98,24 @@ public class StudentCourseService {
 
     public List<StudentDto> getAllStudentsUnderSingleCourse(Long courseId) {
 
-        return null;
+        Course course = courseRepo.findCourseBycId(courseId)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found"));
+
+        List<Object[]> registeredStudents = studentRepo.getAllRegisteredStudentById(course.getCId());
+
+        if(registeredStudents.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<StudentDto> students = new ArrayList<>();
+
+        registeredStudents.forEach(sId -> {
+            Optional<Student> student = studentRepo.findStudentBysId((Long) sId[0]);
+            StudentDto formattedStudent = studentMapper.entityToDto(student.get());
+            students.add(formattedStudent);
+        });
+
+        return students;
 
     }
 }

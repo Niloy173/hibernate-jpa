@@ -21,4 +21,8 @@ public interface StudentRepo extends JpaRepository<Student,Long> {
     @Query(value = "SELECT SC.COURSE_ID FROM STUDENT_COURSES SC " +
             "WHERE SC.STUDENT_ID = :sId", nativeQuery = true)
     List<Object[]> getAllRegisteredCoursesById(@Param("sId") Long sId);
+
+    @Query(value = "SELECT SC.STUDENT_ID FROM STUDENT_COURSES SC " +
+            "WHERE SC.COURSE_ID = :cId", nativeQuery = true)
+    List<Object[]> getAllRegisteredStudentById(@Param("cId") Long cId);
 }
