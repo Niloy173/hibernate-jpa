@@ -1,6 +1,9 @@
 package com.course.jpa.hibernate;
 
 
+import com.course.jpa.hibernate.sections.section9.entity.FullTimeEmployee;
+import com.course.jpa.hibernate.sections.section9.entity.PartTimeEmployee;
+import com.course.jpa.hibernate.sections.section9.repository.EmployeeRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +22,9 @@ public class Application implements CommandLineRunner {
 
 	@Autowired
 	private Environment env;
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -39,6 +45,11 @@ public class Application implements CommandLineRunner {
 
 			// ----- Testing configuration properties ----------
 			log.info("Currency configuration : {} ",currencyConfiguration);
+
+//			employeeRepo.insert(new FullTimeEmployee("John","20000"));
+//			employeeRepo.insert(new PartTimeEmployee("Lamim", "40"));
+//
+//			log.info("Employee Information : {} ",employeeRepo.getAllEmployee());
 		}
 	}
 }
