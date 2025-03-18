@@ -8,7 +8,7 @@ import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BookMapper {
 
     Book dtoToEntity(BookDto bookDto);
@@ -19,6 +19,6 @@ public interface BookMapper {
     List<Book> dtoToEntityList(List<BookDto> bookDtos);
 
 
-    @Mapping(target = "authorId", source = "authorId", ignore = true)
+    //@Mapping(target = "authorId", source = "authorId", ignore = true)
     List<BookDto> entityToDtoList(List<Book> books);
 }
