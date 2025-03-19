@@ -8,6 +8,8 @@ import com.course.jpa.hibernate.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -16,6 +18,17 @@ public class PersonController {
 
     public PersonController(PersonService personService) {
         this.personService = personService;
+    }
+
+    @GetMapping("/all")
+    public List<PersonDto> getAllPerson() {
+        return this.personService.getAllPerson();
+    }
+    @GetMapping("/request-per-page")
+    public List<PersonDto> getAllPersonBasedOnPagination(
+            @RequestParam("pageNumber") int pageNumber,
+            @RequestParam("pageSize") int pageSize) {
+        return personService.getAllPersonViaPagination(pageNumber, pageSize);
     }
 
     @GetMapping("/get-person/{personId}")
