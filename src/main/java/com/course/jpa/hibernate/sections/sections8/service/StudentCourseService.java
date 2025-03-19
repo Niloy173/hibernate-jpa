@@ -122,4 +122,20 @@ public class StudentCourseService {
         return students;
 
     }
+
+    public List<CourseDto> getAllUnregisteredCourse() {
+
+        List<CourseDto> response = new ArrayList<>();
+        List<Course> data = courseRepo.getAllUnregisteredCourseInfo();
+
+        if(data.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        data.forEach(course -> {
+            CourseDto c = courseMapper.entityToDto(course);
+            response.add(c);
+        });
+        return response;
+    }
 }
