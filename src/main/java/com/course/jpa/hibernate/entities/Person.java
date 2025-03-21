@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -17,6 +20,9 @@ import java.util.Date;
 @Table(name = "PERSON")
 //@NamedQuery(name = "find_all_persons", query = "SELECT * FROM PERSON ")
 @DynamicUpdate
+@SQLDelete(sql = "UPDATE Person p set p.IS_DELETED = 'Y' where p.PERSON_ID = ?")
+@Where(clause = "IS_DELETED = 'N'")
+@Slf4j
 public class Person {
 
     @Id
@@ -44,6 +50,17 @@ public class Person {
 
     @Column(name = "CREATED_DATE")
     private Timestamp createdAt;
+
+    @Column(name = "IS_DELETED")
+    private String isDeleted;
+
+    @PreRemove
+    protected void onRemove() {
+//        if(this.isDeleted == null) {
+            log.info("Deleting person");
+            this.isDeleted =  "Y";
+//        }
+    }
 
     @PrePersist
     protected void onCreate() {

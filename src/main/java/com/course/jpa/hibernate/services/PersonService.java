@@ -7,6 +7,7 @@ import com.course.jpa.hibernate.projections.PersonProjections;
 import com.course.jpa.hibernate.repositories.PersonRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -86,7 +87,7 @@ public class PersonService {
         return mappedPerson;
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public String deleteByUserId(Long id) {
         Person p = personRepo.findByPersonId(id)
                 .orElseThrow(() -> new EntityNotFoundException("Person not found"));

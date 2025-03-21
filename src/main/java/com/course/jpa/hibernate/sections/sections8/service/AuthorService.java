@@ -8,6 +8,7 @@ import com.course.jpa.hibernate.sections.sections8.mapper.AuthorMapper;
 import com.course.jpa.hibernate.sections.sections8.mapper.BookMapper;
 import com.course.jpa.hibernate.sections.sections8.repo.AuthorRepo;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class AuthorService {
 
     private final AuthorMapper authorMapper;
@@ -27,6 +29,23 @@ public class AuthorService {
         this.authorMapper = authorMapper;
         this.authorRepo = authorRepo;
         this.bookMapper = bookMapper;
+    }
+
+    public List<AuthorDto> getAllAuthor() {
+
+        List<AuthorDto> response = new ArrayList<>();
+        List<Author> authors = authorRepo.findAll();
+
+//        for(Author author: authors) {
+//            log.info("Author -> {} Books -> {} ",author,author.getBooks());
+//        }
+
+        authors.forEach(a -> {
+            AuthorDto singleRecord = authorMapper.entityToDto(a);
+            response.add(singleRecord);
+        });
+
+        return response;
     }
 
     public String saveAuthor(AuthorDto authorDto) {

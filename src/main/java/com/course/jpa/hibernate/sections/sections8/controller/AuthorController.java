@@ -16,6 +16,11 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
+    @GetMapping("/all")
+    public List<AuthorDto> getAllAuthor() {
+        return authorService.getAllAuthor();
+    }
+
     @GetMapping("/author-details/{authorId}")
     public AuthorDto getAuthorDetails(@PathVariable("authorId") Long authorId) {
         return  authorService.showAuthorDetails(authorId);
